@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="Neptune.💤">
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="http://example.com/2023/05/11/esp32入门学习/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+        <meta name="description" content="🛠️开发环境搭建 Vscode PlatformIO利用vscode platformIO搭建开发环境。 1. 将ESP32开发板连接到电脑上，打开设备管理器，查看端口号.   这里是COM5，如果没有显示端口号则需要安装驱动。 2. 新建工程文件夹（例如某个项目文件夹里面），在文件夹的环境中打开vscode(Shift+F10 在code环境中打开)，然后打开插件PlarformIO-(左下角">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ESP32入门学习">
+<meta property="og:url" content="http://example.com/2023/05/11/ESP32%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0/index.html">
+<meta property="og:site_name" content="Fomalhaut_wiki">
+<meta property="og:description" content="🛠️开发环境搭建 Vscode PlatformIO利用vscode platformIO搭建开发环境。 1. 将ESP32开发板连接到电脑上，打开设备管理器，查看端口号.   这里是COM5，如果没有显示端口号则需要安装驱动。 2. 新建工程文件夹（例如某个项目文件夹里面），在文件夹的环境中打开vscode(Shift+F10 在code环境中打开)，然后打开插件PlarformIO-(左下角">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2023/05/11/ESP32%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0/fig_1.png">
+<meta property="og:image" content="http://example.com/2023/05/11/ESP32%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0/fig_2.png">
+<meta property="og:image" content="http://example.com/2023/05/11/ESP32%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0/fig_3.png">
+<meta property="og:image" content="http://example.com/2023/05/11/ESP32%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0/fig_9.png">
+<meta property="og:image" content="http://example.com/2023/05/11/ESP32%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0/fig_4.png">
+<meta property="og:image" content="http://example.com/2023/05/11/ESP32%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0/fig_5.png">
+<meta property="og:image" content="http://example.com/2023/05/11/ESP32%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0/fig_6.png">
+<meta property="og:image" content="http://example.com/2023/05/11/ESP32%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0/fig_7.jpg">
+<meta property="og:image" content="http://example.com/2023/05/11/ESP32%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0/fig_10.png">
+<meta property="article:published_time" content="2023-05-10T16:38:56.000Z">
+<meta property="article:modified_time" content="2023-07-24T10:45:10.000Z">
+<meta property="article:author" content="hwx">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2023/05/11/ESP32%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0/fig_1.png">
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/redefine-favicon.svg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/redefine-favicon.svg">
+    <meta name="theme-color" content="#A31F34">
+    <link rel="shortcut icon" href="/images/redefine-favicon.svg">
+    <!--- Page Info-->
+    
+    <title>
+        
+            ESP32入门学习 -
+        
+        Fomalhaut Wiki
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<link rel="stylesheet" href="/assets/fonts.css">
+
+    <!--- Font Part-->
+    
+    
+    
+    
+
+    <!--- Inject Part-->
+    
+    <script id="hexo-configurations">
+    let Global = window.Global || {};
+    Global.hexo_config = {"hostname":"example.com","root":"/","language":"en"};
+    Global.theme_config = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[""]},"code_block":{"copy":true,"style":"mac","font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":true,"lazyload":true,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"busuanzi_counter":{"enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"pjax":true,"open_graph":true,"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/back_light.jpg","dark":"/images/background.jpg"},"title":"Fomalhaut Wiki","subtitle":{"text":["🤖Robotics","🔢Mathmatics","🔫RoboMaster","⚙️Engineering","🎹Classical Music","💡Quantum Mechanics","🔭Astronomy"],"hitokoto":{"enable":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":false,"links":{"github":null,"instagram":null,"zhihu":null,"twitter":null,"email":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null}]},"mermaid":{"enable":false,"version":"9.3.0"}},"version":"2.1.3","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"}},"search":{"enable":false,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"links":{"shuoshuo":{"path":"/essays","icon":"fa-solid fa-message-dots"}}},"article_date_format":"auto","categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}}};
+    Global.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fa-solid fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="main-content-container">
+
+        <div class="main-content-header">
+            <header class="navbar-container">
+    
+    <div class="navbar-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                
+                Fomalhaut Wiki
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-house"></i>
+                                        
+                                        HOME
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile drawer -->
+    <div class="navbar-drawer">
+        <ul class="drawer-navbar-list">
+            
+                
+                    <li class="drawer-navbar-item flex-center">
+                        <a class="" 
+                        href="/"  >
+                             
+                                
+                                    <i class="fa-regular fa-house"></i>
+                                
+                                HOME
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="main-content-body">
+
+            
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+
+            
+            
+                <div class="article-title">
+                    <h1 class="article-title-regular">ESP32入门学习</h1>
+                </div>
+            
+                
+            
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="/images/portrait_hwx.svg">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">Neptune.💤</span>
+                            
+                                <span class="author-label"></span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2023-05-11 00:38:56</span>
+        <span class="mobile">2023-05-11 00:38</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2023-07-24 18:45:10</span>
+            <span class="mobile">2023-07-24 18:45</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content markdown-body">
+                <h1 id="🛠️开发环境搭建"><a href="#🛠️开发环境搭建" class="headerlink" title="🛠️开发环境搭建"></a>🛠️开发环境搭建</h1><hr>
+<h2 id="Vscode-PlatformIO"><a href="#Vscode-PlatformIO" class="headerlink" title="Vscode PlatformIO"></a>Vscode PlatformIO</h2><p>利用vscode platformIO搭建开发环境。</p>
+<p><strong>1. 将ESP32开发板连接到电脑上，打开设备管理器，查看端口号.</strong></p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2023/05/11/ESP32%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0/fig_1.png"
+                      class="" width="600"
+                >
+
+<p>这里是COM5，如果没有显示端口号则需要安装驱动。</p>
+<p><strong>2. 新建工程文件夹（例如某个项目文件夹里面），在文件夹的环境中打开vscode(Shift+F10 在code环境中打开)，然后打开插件PlarformIO-(左下角)<code>QUICK ACCESS</code>-<code>PIO HOME</code>-<code>Open</code></strong></p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2023/05/11/ESP32%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0/fig_2.png"
+                      class="" width="700"
+                >
+
+<p>可以在<code>Devices</code>中查看到ESP32的端口号(左边栏)</p>
+<p>也可以在<code>Projects</code>中打开其他工程文件夹</p>
+<p><strong>3. 新建项目，点击上图<code>New Project</code>，按照下图填上框架。</strong></p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2023/05/11/ESP32%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0/fig_3.png"
+                      class="" width="500"
+                >
+
+<p>创建之后在<code>src</code>文件夹中会有一个<code>main.cpp</code>文件，代码就放在这个地方。</p>
+<p><strong>编译下载</strong></p>
+
+
+<p>在vscode左下角</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2023/05/11/ESP32%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0/fig_9.png"
+                      class="" width="800"
+                >
+
+<p>点击左边的Build编译，点击右边的Upload下载。</p>
+<h1 id="📬ESP32串口通信"><a href="#📬ESP32串口通信" class="headerlink" title="📬ESP32串口通信"></a>📬ESP32串口通信</h1><hr>
+<h2 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h2><p>串口是单片机常用的一种通信方式，通过两条线：TX和RX进行通信。</p>
+<p>连接方式：一端的Tx接另外一端Rx，一端的Rx接另外一端Tx。</p>
+<h2 id="串口收发"><a href="#串口收发" class="headerlink" title="串口收发"></a>串口收发</h2><h3 id="发送"><a href="#发送" class="headerlink" title="发送"></a>发送</h3><p>将ESP32与电脑连接（注意Tx和RX连接方式），利用TTL转USB模块连接。</p>
+<p>ESP32有四个串口，分别是：Serial0、Serial1、Serial2、Serial3，一般不用Serial0，因为它用来烧录程序。</p>
+<p>这里用Serial1向电脑发送指令，我们用串口调试助手来看效果。</p>
+<div class="highlight-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;Arduino.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">setup</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  Serial1.<span class="built_in">begin</span>(<span class="number">115200</span>, SERIAL_8N1, <span class="number">17</span>, <span class="number">16</span>); </span><br><span class="line">  <span class="comment">// 初始化Serial1，波特率为115200，帧格式为8位数据位，无校验位，1位停止位，设置接收端IO17为RX, IO16为TX</span></span><br><span class="line"></span><br><span class="line">  Serial1.<span class="built_in">println</span>(<span class="string">&quot;ESP32 Serial Communication Test&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">loop</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  Serial1.<span class="built_in">println</span>(<span class="string">&quot;Hello from ESP32!&quot;</span>);  <span class="comment">// 向电脑发送指令包</span></span><br><span class="line">  <span class="built_in">delay</span>(<span class="number">1000</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<div class="note note-default icon-padding"><i class="note-icon fa-solid fa-info-circle"></i><p><code>SERIAL_8N1</code>表示传输的一帧的帧格式，内容为8位数据位，无校验位，1位停止位。</p>
+</div>
+
+<p>我们需要在串口调试助手中选择好串口，设置波特率和帧格式，这里设置为115200，8N1。</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2023/05/11/ESP32%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0/fig_4.png"
+                      class="" width="500"
+                >
+
+<p>烧录程序，打开串口</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2023/05/11/ESP32%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0/fig_5.png"
+                      class="" width="500"
+                >
+
+<p>ESP32不断向电脑发送指令包，电脑不断接收并且显示出来。</p>
+<h3 id="接收"><a href="#接收" class="headerlink" title="接收"></a>接收</h3><p>同样的连接方式。</p>
+<p>通过LED灯来判断是否接收到数据。</p>
+<div class="highlight-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;Arduino.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> LED_PIN 2</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">setup</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Serial1.<span class="built_in">begin</span>(<span class="number">115200</span>, SERIAL_8N1, <span class="number">17</span>, <span class="number">16</span>);</span><br><span class="line">    <span class="built_in">pinMode</span>(LED_PIN, OUTPUT);</span><br><span class="line">    <span class="built_in">digitalWrite</span>(LED_PIN, LOW);</span><br><span class="line"></span><br><span class="line">    Serial1.<span class="built_in">println</span>(<span class="string">&quot;ESP32 Serial Communication Test&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">loop</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (Serial1.<span class="built_in">available</span>()) <span class="comment">// 检查串口是否有数据</span></span><br><span class="line">    &#123;</span><br><span class="line">        String receiveData = Serial1.<span class="built_in">readString</span>(); <span class="comment">// 读取并存储串口数据</span></span><br><span class="line">        Serial1.<span class="built_in">println</span>(<span class="string">&quot;Received data: &quot;</span> + receiveData); <span class="comment">// 将串口数据发送回电脑</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (receiveData == <span class="string">&quot;on&quot;</span>) <span class="comment">// 如果串口数据为“on”</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">digitalWrite</span>(LED_PIN, HIGH); <span class="comment">// 点亮LED</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">digitalWrite</span>(LED_PIN, LOW); <span class="comment">// 关闭LED</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p>电脑返回发送的数据：</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2023/05/11/ESP32%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0/fig_6.png"
+                      class="" width="500"
+                >
+<p>当只发送”on”，则可以点亮LED，发送其他数据则关闭LED。</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2023/05/11/ESP32%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0/fig_7.jpg"
+                      class="" width="200"
+                >
+
+<h2 id="16进制数据收发"><a href="#16进制数据收发" class="headerlink" title="16进制数据收发"></a>16进制数据收发</h2><p>通常，我们在串口调试助手中发送的数据都是ASCII码，但是与传感器通信时通常都需要16进制的指令包。</p>
+<p>因为一个字节等于两位16进制，因此发送的时候以两位16进制为单位进行编码，16进制的编码格式：</p>
+<div class="highlight-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">unsigned</span> <span class="type">char</span> PS_Search[] = &#123;<span class="number">0xEF</span>, <span class="number">0x01</span>, <span class="number">0xFF</span>, <span class="number">0x50</span>, <span class="number">0x00</span>, <span class="number">0x0A</span>, <span class="number">0x00</span>, <span class="number">0x68</span>&#125;; </span><br><span class="line"><span class="comment">// 指令包: EF01 FF 01 50 000A 0068</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">setup</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p>如果需要发送特定的指令包，需要在void setup()函数前添加</p>
+<h1 id="📮ESP32SPI通信"><a href="#📮ESP32SPI通信" class="headerlink" title="📮ESP32SPI通信"></a>📮ESP32SPI通信</h1><blockquote>
+<p>SPI 串行外设接口 (Serial Peripheral Interface) 是一种高速的，全双工，同步的通信总线。</p>
+</blockquote>
+<p>ESP32集成了4个SPI控制器，分别是SPI0, SPI1, SPI2, SPI3，由于flash使用SPI0, SPI1，因此SPI2和SPI3是通用的SPI控制器，日常使用这两个SPI进行开发。</p>
+<div class="note note-default icon-padding"><i class="note-icon fa-solid fa-info-circle"></i><p>SPI2也叫HSPI，SPI3也叫VSPI。</p>
+</div>
+
+<p>使用默认的引脚，可以使用80MHz的时钟。</p>
+<table>
+<thead>
+<tr>
+<th>SPI2 (HSPI)</th>
+<th>SPI3 (VSPI)</th>
+<th>SPI Signal</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>13</td>
+<td>23</td>
+<td>MOSI</td>
+<td>主设备输出，从设备输入</td>
+</tr>
+<tr>
+<td>12</td>
+<td>19</td>
+<td>MISO</td>
+<td>主设备输入，从设备输出</td>
+</tr>
+<tr>
+<td>14</td>
+<td>18</td>
+<td>SCLK</td>
+<td>时钟信号</td>
+</tr>
+<tr>
+<td>15</td>
+<td>5</td>
+<td>SS</td>
+<td>片选信号（用于从设备选择）</td>
+</tr>
+</tbody></table>
+<h1 id="🦾ESP32输出PWM信号"><a href="#🦾ESP32输出PWM信号" class="headerlink" title="🦾ESP32输出PWM信号"></a>🦾ESP32输出PWM信号</h1><p>这里利用ESP32与舵机进行通信来学习PWM信号的输出；</p>
+<div class="highlight-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;ESP32Servo.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;Arduino.h&gt;</span></span></span><br><span class="line"></span><br><span class="line">Servo servo1; <span class="comment">//定义servo对象</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 这个是SG90舵机的参数，不同的舵机参数不同，需要查看舵机的说明书</span></span><br><span class="line"><span class="type">int</span> minUs = <span class="number">500</span>; <span class="comment">//0度时脉宽，us</span></span><br><span class="line"><span class="type">int</span> maxUs = <span class="number">2400</span>; <span class="comment">//180度时的脉宽，us</span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> servo1Pin = <span class="number">22</span>; <span class="comment">//对应esp32上的pin22，输出pwm</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">setup</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="comment">// put your setup code here, to run once:</span></span><br><span class="line">  <span class="comment">// 初始化舵机控制</span></span><br><span class="line">  </span><br><span class="line">  ESP32PWM::<span class="built_in">allocateTimer</span>(<span class="number">0</span>); <span class="comment">// 分配一个ESP32中的一个定时器</span></span><br><span class="line"></span><br><span class="line">  servo1.<span class="built_in">setPeriodHertz</span>(<span class="number">50</span>); <span class="comment">// 设置舵机PWM频率为50Hz</span></span><br><span class="line"></span><br><span class="line">  servo1.<span class="built_in">attach</span>(servo1Pin, minUs, maxUs); <span class="comment">// 将舵机与引脚对应</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">loop</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="comment">// put your main code here, to run repeatedly:</span></span><br><span class="line">  <span class="built_in">delay</span>(<span class="number">1000</span>);</span><br><span class="line">  servo1.<span class="built_in">write</span>(<span class="number">0</span>); <span class="comment">// 将多级旋转到对应的角度</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p>接线，一般的舵机工作电压都为5V</p>
+<h1 id="⚙️ESP32常用模块"><a href="#⚙️ESP32常用模块" class="headerlink" title="⚙️ESP32常用模块"></a>⚙️ESP32常用模块</h1><h2 id="超声波模块"><a href="#超声波模块" class="headerlink" title="超声波模块"></a>超声波模块</h2><p>以HC-SR04为例：</p>
+<div class="note note-primary icon-padding"><i class="note-icon fa-solid fa-circle-arrow-right"></i><p>原理：</p>
+<ol>
+<li>单片机给模块发送一个至少10us的高电平脉冲到Trig引脚（触发）。</li>
+<li>模块接收到脉冲后会在Echo引脚（回声）发出一个高电平脉冲。</li>
+<li>这个脉冲的持续时间就是声波从发出到反射回来的时间，通过测量声速往返的时间，便可以得到距离。</li>
+</ol>
+</div>
+
+
+
+<h2 id="蓝牙模块"><a href="#蓝牙模块" class="headerlink" title="蓝牙模块"></a>蓝牙模块</h2><p>蓝牙模块使用的是&lt;BLEDevice.h&gt;这个库，通过一段示例代码，使得手机或者平板可以通过蓝牙设备搜索，以LED为信号，来尝试连接esp32;</p>
+<p>UUID用于区分一个服务器中不同的服务和不同的特性，可以用UUID生成器（直接搜一个）来生成UUID;</p>
+<p>在BLE中，有以下几个重要的概念：</p>
+<ul>
+<li><p>BLE设备 (BLE Device): </p>
+<ul>
+<li>任何能够进行BLE通信的物理设备都可以被认为是一个BLE设备。这包括手机或平板或ESP32。</li>
+</ul>
+</li>
+<li><p>BLE服务器 (BLE Server): </p>
+<ul>
+<li>在BLE通信中，服务器是保存并提供数据的设备。服务器拥有一种称为“GATT (Generic Attribute Profile)”的数据结构，这个数据结构包含了这个服务器可以提供的所有数据。</li>
+</ul>
+</li>
+<li><p>BLE服务 (BLE Service): </p>
+<ul>
+<li>在GATT数据结构中，服务是一种组织数据的方式。每个服务都有一个唯一的UUID，以标识这个服务。服务包含了一组特性，每个特性都代表了一个数据点。</li>
+</ul>
+</li>
+<li><p>BLE特性 (BLE Characteristic): </p>
+<ul>
+<li>特性代表了一个数据点，例如一个传感器的读数或一个开关的状态。每个特性都有一个唯一的UUID，以标识这个特性。特性可以有不同的属性，例如可以读取、可以写入、可以通知等。</li>
+</ul>
+</li>
+</ul>
+<p>因此需要在代码中一步步创建以上四个对象。最后开始服务和开始广播，则可以在手机或者平板中找到对应的esp32设备进行连接。</p>
+<div class="highlight-container" data-rel="Cpp"><figure class="iseeu highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;Arduino.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;BLEDevice.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> LED_PIN 2</span></span><br><span class="line"></span><br><span class="line"><span class="type">bool</span> deviceConnected = <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> SERVICE_UUID           <span class="string">&quot;fdad0fc5-a2af-4afd-a90e-4b1b590687bf&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> CHARACTERISTIC_UUID    <span class="string">&quot;5a5409a9-1206-4f6d-8f0b-c758946329e2&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">MyServerCallbacks</span>: <span class="keyword">public</span> BLEServerCallbacks &#123;</span><br><span class="line">  <span class="function"><span class="type">void</span> <span class="title">onConnect</span><span class="params">(BLEServer* pServer)</span> </span>&#123;</span><br><span class="line">    deviceConnected = <span class="literal">true</span>;</span><br><span class="line">    <span class="built_in">digitalWrite</span>(LED_PIN, HIGH);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="type">void</span> <span class="title">onDisconnect</span><span class="params">(BLEServer* pServer)</span> </span>&#123;</span><br><span class="line">    deviceConnected = <span class="literal">false</span>;</span><br><span class="line">    <span class="built_in">digitalWrite</span>(LED_PIN, LOW);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">setup</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  Serial.<span class="built_in">begin</span>(<span class="number">115200</span>);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 创建设备</span></span><br><span class="line">  BLEDevice::<span class="built_in">init</span>(<span class="string">&quot;ESP32_BLE&quot;</span>);</span><br><span class="line"></span><br><span class="line">  <span class="comment">//创建服务器</span></span><br><span class="line">  BLEServer *pServer = BLEDevice::<span class="built_in">createServer</span>();</span><br><span class="line">  pServer-&gt;<span class="built_in">setCallbacks</span>(<span class="keyword">new</span> <span class="built_in">MyServerCallbacks</span>());</span><br><span class="line"></span><br><span class="line">  <span class="comment">//创建服务</span></span><br><span class="line">  BLEService *pService = pServer-&gt;<span class="built_in">createService</span>(SERVICE_UUID);</span><br><span class="line"></span><br><span class="line">  <span class="comment">//创建特性</span></span><br><span class="line">  BLECharacteristic *pCharacteristic = pService-&gt;<span class="built_in">createCharacteristic</span>(</span><br><span class="line">    CHARACTERISTIC_UUID,</span><br><span class="line">    BLECharacteristic::PROPERTY_READ   |</span><br><span class="line">    BLECharacteristic::PROPERTY_WRITE  |</span><br><span class="line">    BLECharacteristic::PROPERTY_NOTIFY |</span><br><span class="line">    BLECharacteristic::PROPERTY_INDICATE</span><br><span class="line">  );</span><br><span class="line"></span><br><span class="line">  <span class="comment">//开始服务</span></span><br><span class="line">  pService-&gt;<span class="built_in">start</span>();</span><br><span class="line"></span><br><span class="line">  <span class="comment">//开始广播</span></span><br><span class="line">  BLEAdvertising *pAdvertising = pServer-&gt;<span class="built_in">getAdvertising</span>();</span><br><span class="line">  pAdvertising-&gt;<span class="built_in">start</span>();</span><br><span class="line"></span><br><span class="line">  <span class="built_in">pinMode</span>(LED_PIN, OUTPUT);</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">loop</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">delay</span>(<span class="number">2000</span>);</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+
+
+
+
+<h1 id="🪄常见问题"><a href="#🪄常见问题" class="headerlink" title="🪄常见问题"></a>🪄常见问题</h1><hr>
+<h2 id="无法定位到ESP32Sevro-h"><a href="#无法定位到ESP32Sevro-h" class="headerlink" title="无法定位到ESP32Sevro.h"></a>无法定位到ESP32Sevro.h</h2><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2023/05/11/ESP32%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0/fig_10.png"
+                      class="" width="800"
+                >
+
+<p>在项目工程文件夹中<code>platformio.ini</code>中添加<code>lib_deps = ESP32Servo</code>，然后重新编译。</p>
+<div class="highlight-container" data-rel="Ini"><figure class="iseeu highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[env:esp32dev]</span></span><br><span class="line"><span class="attr">platform</span> = espressif32</span><br><span class="line"><span class="attr">board</span> = esp32dev</span><br><span class="line"><span class="attr">framework</span> = ardui<span class="literal">no</span></span><br><span class="line"><span class="attr">lib_deps</span> = ESP32Servo</span><br></pre></td></tr></table></figure></div>
+
+
+
+
+
+            </div>
+
+            
+                <div class="post-copyright-info">
+                    <div class="article-copyright-info-container">
+    <ul>
+        <li><strong>Title:</strong> ESP32入门学习</li>
+        <li><strong>Author:</strong> Neptune.💤</li>
+        <li><strong>Created at:</strong> 2023-05-11 00:38:56</li>
+        
+            <li>
+                <strong>Updated at:</strong> 2023-07-24 18:45:10
+            </li>
+        
+        <li>
+            <strong>Link:</strong> https://redefine.ohevan.com/2023/05/11/ESP32入门学习/
+        </li>
+        <li>
+            <strong>License:</strong> This work is licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">CC BY-NC-SA 4.0</a>.
+        </li>
+    </ul>
+</div>
+
+                </div>
+            
+
+            
+
+            
+
+            
+                <div class="article-nav">
+                    
+                        <div class="article-prev">
+                            <a class="prev"
+                            rel="prev"
+                            href="/2023/05/12/%E6%99%BA%E8%83%BD%E5%AE%B6%E5%B1%85%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F/"
+                            >
+                                <span class="left arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-left"></i>
+                                </span>
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">智能家居控制系统</span>
+                                    <span class="post-nav-item">Prev posts</span>
+                                </span>
+                            </a>
+                        </div>
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                            rel="next"
+                            href="/2023/05/09/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"
+                            >
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">深度学习基础知识</span>
+                                    <span class="post-nav-item">Next posts</span>
+                                </span>
+                                <span class="right arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+
+            
+                <div class="comment-container">
+                    <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fa-solid fa-comments"></i>&nbsp;Comments
+    </div>
+    
+
+        
+            
+ 
+    <div id="waline"></div>
+    <script type="module"  data-pjax>
+        import { init } from 'https://evan.beee.top/js/waline.mjs';
+
+        function loadWaline() {
+            init({
+                el: '#waline',
+                serverURL: 'https://example.example.com',
+                lang: 'zh-CN',
+                dark: 'body[class~="dark-mode"]',
+                requiredMeta: ['nick','mail'], // cannot customize by theme config, change it yourself
+            });
+        }
+
+        if ('true') {
+            const loadWalineTimeout = setTimeout(() => {
+                loadWaline();
+                clearTimeout(loadWalineTimeout);
+            }, 1000);
+        } else {
+            window.addEventListener('DOMContentLoaded', loadWaline);
+        }
+        
+    </script>
+
+
+
+        
+    
+</div>
+
+                </div>
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div class="toc-title">On this page</div>
+        <div class="page-title">ESP32入门学习</div>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%F0%9F%9B%A0%EF%B8%8F%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA"><span class="nav-text">🛠️开发环境搭建</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Vscode-PlatformIO"><span class="nav-text">Vscode PlatformIO</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%F0%9F%93%ACESP32%E4%B8%B2%E5%8F%A3%E9%80%9A%E4%BF%A1"><span class="nav-text">📬ESP32串口通信</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86"><span class="nav-text">基础知识</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%B2%E5%8F%A3%E6%94%B6%E5%8F%91"><span class="nav-text">串口收发</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%91%E9%80%81"><span class="nav-text">发送</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%A5%E6%94%B6"><span class="nav-text">接收</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#16%E8%BF%9B%E5%88%B6%E6%95%B0%E6%8D%AE%E6%94%B6%E5%8F%91"><span class="nav-text">16进制数据收发</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%F0%9F%93%AEESP32SPI%E9%80%9A%E4%BF%A1"><span class="nav-text">📮ESP32SPI通信</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%F0%9F%A6%BEESP32%E8%BE%93%E5%87%BAPWM%E4%BF%A1%E5%8F%B7"><span class="nav-text">🦾ESP32输出PWM信号</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E2%9A%99%EF%B8%8FESP32%E5%B8%B8%E7%94%A8%E6%A8%A1%E5%9D%97"><span class="nav-text">⚙️ESP32常用模块</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B6%85%E5%A3%B0%E6%B3%A2%E6%A8%A1%E5%9D%97"><span class="nav-text">超声波模块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%93%9D%E7%89%99%E6%A8%A1%E5%9D%97"><span class="nav-text">蓝牙模块</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%F0%9F%AA%84%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98"><span class="nav-text">🪄常见问题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%97%A0%E6%B3%95%E5%AE%9A%E4%BD%8D%E5%88%B0ESP32Sevro-h"><span class="nav-text">无法定位到ESP32Sevro.h</span></a></li></ol></li></ol>
+
+    </div>
+</div>
+            </div>
+        
+    </div>
+</div>
+
+
+                
+
+            </div>
+            
+            
+
+        </div>
+
+        <div class="main-content-footer">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2023&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">Neptune.💤</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv" class="busuanzi_container_site_uv">
+                        VISITOR COUNT&nbsp;<span id="busuanzi_value_site_uv" class="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="busuanzi_container_site_pv">
+                        TOTAL PAGE VIEWS&nbsp;<span id="busuanzi_value_site_pv" class="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            <span class="powered-by-container">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" href="https://hexo.io">Hexo</a></span>
+                <br>
+            <span class="theme-version-container">THEME&nbsp;<a class="theme-version" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.1.3</a>
+        </div>
+        
+        
+        
+            <div id="start_div" style="display:none">
+                2022/8/17 11:45:14
+            </div>
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+        
+            <script async data-pjax>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="article-tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="right-bottom-tools page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fa-regular fa-comments"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-side-tools-container">
+        <div class="side-tools-container">
+    <ul class="hidden-tools-list">
+        <li class="right-bottom-tools tool-font-adjust-plus flex-center">
+            <i class="fa-regular fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-font-adjust-minus flex-center">
+            <i class="fa-regular fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-expand-width flex-center">
+            <i class="fa-regular fa-expand"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-dark-light-toggle flex-center">
+            <i class="fa-regular fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="right-bottom-tools tool-scroll-to-bottom flex-center">
+            <i class="fa-regular fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="visible-tools-list">
+        <li class="right-bottom-tools toggle-tools-list flex-center">
+            <i class="fa-regular fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="right-bottom-tools tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/layouts/navbarShrink.js"></script>
+
+<script src="/js/tools/scrollTopBottom.js"></script>
+
+<script src="/js/tools/lightDarkSwitch.js"></script>
+
+
+
+
+
+    
+<script src="/js/tools/codeBlock.js"></script>
+
+
+
+
+    
+<script src="/js/layouts/lazyload.js"></script>
+
+
+
+
+    
+<script src="/js/tools/runtime.js"></script>
+
+    
+<script src="/js/layouts/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+  
+<script src="/js/libs/Typed.min.js"></script>
+
+  
+<script src="/js/plugins/typed.js"></script>
+
+
+
+
+
+
+
+
+<div class="post-scripts pjax">
+    
+        
+<script src="/js/tools/tocToggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/layouts/toc.js"></script>
+
+<script src="/js/plugins/tabs.js"></script>
+
+    
+</div>
+
+
+    
+<script src="/js/libs/pjax.min.js"></script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax',
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            Global.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            Global.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            Global.refresh();
+        });
+    });
+</script>
+
+
+
+
+</body>
+</html>
