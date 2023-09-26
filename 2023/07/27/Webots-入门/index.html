@@ -35,8 +35,14 @@
 <meta property="og:image" content="http://example.com/2023/07/27/Webots-%E5%85%A5%E9%97%A8/fig_7.png">
 <meta property="og:image" content="http://example.com/2023/07/27/Webots-%E5%85%A5%E9%97%A8/fig_8.png">
 <meta property="og:image" content="http://example.com/2023/07/27/Webots-%E5%85%A5%E9%97%A8/fig_10.png">
+<meta property="og:image" content="http://example.com/2023/07/27/Webots-%E5%85%A5%E9%97%A8/fig_15.png">
+<meta property="og:image" content="http://example.com/2023/07/27/Webots-%E5%85%A5%E9%97%A8/fig_11.png">
+<meta property="og:image" content="http://example.com/2023/07/27/Webots-%E5%85%A5%E9%97%A8/fig_12.png">
+<meta property="og:image" content="http://example.com/2023/07/27/Webots-%E5%85%A5%E9%97%A8/fig_13.png">
+<meta property="og:image" content="http://example.com/2023/07/27/Webots-%E5%85%A5%E9%97%A8/fig_14.png">
+<meta property="og:image" content="http://example.com/2023/07/27/Webots-%E5%85%A5%E9%97%A8/fig_16.png">
 <meta property="article:published_time" content="2023-07-27T05:53:28.000Z">
-<meta property="article:modified_time" content="2023-07-28T09:50:13.784Z">
+<meta property="article:modified_time" content="2023-08-12T09:56:50.834Z">
 <meta property="article:author" content="hwx">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/2023/07/27/Webots-%E5%85%A5%E9%97%A8/fig_2.png">
@@ -227,7 +233,7 @@
                         <div class="author">
                             <span class="name">Neptune.💤</span>
                             
-                                <span class="author-label">Lv2</span>
+                                <span class="author-label">Lv3</span>
                             
                         </div>
                         <div class="meta-info">
@@ -241,8 +247,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2023-07-28 17:50:13</span>
-            <span class="mobile">2023-07-28 17:50:13</span>
+            <span class="desktop">2023-08-12 17:56:50</span>
+            <span class="mobile">2023-08-12 17:56:50</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -324,6 +330,7 @@
                 >
 
 <h2 id="PROTO的制作"><a href="#PROTO的制作" class="headerlink" title="PROTO的制作"></a>PROTO的制作</h2><p>Webots里面可以通过创建一个PROTO file来引入一些机器人和场地道具，避免了一些重复造轮子的工作。</p>
+<h2 id="Solidworks导入模型"><a href="#Solidworks导入模型" class="headerlink" title="Solidworks导入模型"></a>Solidworks导入模型</h2><p>在新版的webots中，不能像往常一样直接导入VRML97模型，导致插入Solidworks的图纸比较麻烦，因此在机器人的设计过程中，尽量通过简化模型，使用webots自带的几何体来进行代替。</p>
 <h2 id="入门练习"><a href="#入门练习" class="headerlink" title="入门练习"></a>入门练习</h2><p>第一次学习或者很久没使用，应该跟着官方文档的Turorials过一遍。或者哪些内容忘记了，跟着对应的Tutorial过一遍。</p>
 <p><a class="link"   target="_blank" rel="noopener" href="https://www.cyberbotics.com/doc/guide/tutorials" >Tutorials <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
 <h3 id="麦轮底盘控制器（详细）"><a href="#麦轮底盘控制器（详细）" class="headerlink" title="麦轮底盘控制器（详细）"></a>麦轮底盘控制器（详细）</h3><p>由于麦轮建模非常复杂，因此可以拿webots自带的麦轮底盘进行修改。我们这里尝试写一个<br>controller，使得其可以通过键盘控制全向移动，以此来快速上手。</p>
@@ -397,7 +404,60 @@
 <p>完整代码如下：</p>
 <div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;robot.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;distance_sensor.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;motor.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta"># <span class="keyword">define</span> TIME_STEP 64</span></span><br><span class="line"></span><br><span class="line"><span class="meta"># <span class="keyword">define</span> MAX_SPEED 6.28</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// entry point of the controller</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> **argv)</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="comment">// initialize the Webots API</span></span><br><span class="line">  wb_robot_init();</span><br><span class="line"></span><br><span class="line">  <span class="comment">// initialize devices</span></span><br><span class="line">  <span class="type">int</span> i;</span><br><span class="line">  WbDeviceTag ps[<span class="number">8</span>];</span><br><span class="line"></span><br><span class="line">  <span class="type">char</span> ps_names[<span class="number">8</span>][<span class="number">4</span>] = &#123;</span><br><span class="line">    <span class="string">&quot;ps0&quot;</span>, <span class="string">&quot;ps1&quot;</span>, <span class="string">&quot;ps2&quot;</span>, <span class="string">&quot;ps3&quot;</span>,</span><br><span class="line">    <span class="string">&quot;ps4&quot;</span>, <span class="string">&quot;ps5&quot;</span>, <span class="string">&quot;ps6&quot;</span>, <span class="string">&quot;ps7&quot;</span></span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; <span class="number">8</span>; i++)</span><br><span class="line">  &#123;</span><br><span class="line">    ps[i] = wb_robot_get_device(ps_names[i]);</span><br><span class="line">    wb_distance_sensor_enable(ps[i], TIME_STEP);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  WbDeviceTag left_motor = wb_robot_get_device(<span class="string">&quot;left wheel motor&quot;</span>);</span><br><span class="line">  WbDeviceTag right_motor = wb_robot_get_device(<span class="string">&quot;right wheel motor&quot;</span>);</span><br><span class="line"></span><br><span class="line">  wb_motor_set_position(left_motor, INFINITY);</span><br><span class="line">  wb_motor_set_position(right_motor, INFINITY);</span><br><span class="line"></span><br><span class="line">  wb_motor_set_velocity(left_motor, <span class="number">0.0</span>);</span><br><span class="line">  wb_motor_set_velocity(right_motor, <span class="number">0.0</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">while</span> (wb_robot_step(TIME_STEP) != <span class="number">-1</span>)</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="comment">// read sensors outputs</span></span><br><span class="line">    <span class="type">double</span> ps_values[<span class="number">8</span>];</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; <span class="number">8</span>; i++)</span><br><span class="line">    &#123;</span><br><span class="line">      ps_values[i] = wb_distance_sensor_get_value(ps[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// detect obstacles</span></span><br><span class="line">    <span class="type">bool</span> right_obstacle = </span><br><span class="line">    ps_values[<span class="number">0</span>] &gt; <span class="number">80.0</span> ||</span><br><span class="line">    ps_values[<span class="number">1</span>] &gt; <span class="number">80.0</span> ||</span><br><span class="line">    ps_values[<span class="number">2</span>] &gt; <span class="number">80.0</span>;</span><br><span class="line">    <span class="type">bool</span> left_obstacle =</span><br><span class="line">    ps_values[<span class="number">5</span>] &gt; <span class="number">80.0</span> ||</span><br><span class="line">    ps_values[<span class="number">6</span>] &gt; <span class="number">80.0</span> ||</span><br><span class="line">    ps_values[<span class="number">7</span>] &gt; <span class="number">80.0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// initialize motor speeds at 50% of MAX_SPEED</span></span><br><span class="line">    <span class="type">double</span> left_speed = <span class="number">0.8</span> * MAX_SPEED;</span><br><span class="line">    <span class="type">double</span> right_speed = <span class="number">0.8</span> * MAX_SPEED;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// modify speeds according to obstacles</span></span><br><span class="line">    <span class="keyword">if</span> (left_obstacle)</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="comment">// turn right</span></span><br><span class="line">      left_speed = <span class="number">0.8</span> * MAX_SPEED;</span><br><span class="line">      right_speed = <span class="number">-0.8</span> * MAX_SPEED;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (right_obstacle)</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="comment">// turn left</span></span><br><span class="line">      left_speed = <span class="number">-0.8</span> * MAX_SPEED;</span><br><span class="line">      right_speed = <span class="number">0.8</span> * MAX_SPEED;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// write actuators inputs</span></span><br><span class="line">    wb_motor_set_velocity(left_motor, left_speed);</span><br><span class="line">    wb_motor_set_velocity(right_motor, right_speed);</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// cleanup the Webots API</span></span><br><span class="line">  wb_robot_cleanup();</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
 <p>将e-puck机器人的controller替换为<code>epuck_avoid_collision</code>，运行仿真即可。</p>
-<h3 id="PID小车倒立摆模型"><a href="#PID小车倒立摆模型" class="headerlink" title="PID小车倒立摆模型"></a>PID小车倒立摆模型</h3><h3 id="四旋翼姿态控制"><a href="#四旋翼姿态控制" class="headerlink" title="四旋翼姿态控制"></a>四旋翼姿态控制</h3><h3 id="轮腿机器人"><a href="#轮腿机器人" class="headerlink" title="轮腿机器人"></a>轮腿机器人</h3><h2 id="Webots的不足"><a href="#Webots的不足" class="headerlink" title="Webots的不足"></a>Webots的不足</h2><p>Webots作为一个易用性强，结构简单的虚拟样机，可以针对一些机器人中的运动学和工作规划的设计进行优化，但是缺点也很明显，对于物理属性和材料属性决定的问题，webots的仿真比较无力。例如在解决步兵发射机构和飞镖发射的问题时，任何微小变化的因素：装配精度，温度变化，电机性能等等都会对发射精度产生不可忽略的影响。</p>
+<h3 id="小车倒立摆模型搭建"><a href="#小车倒立摆模型搭建" class="headerlink" title="小车倒立摆模型搭建"></a>小车倒立摆模型搭建</h3><p>在webots中，通常一个机器人是一个Robot nodes, Robot nodes再由很多Solid nodes组成, 不同的Solid nodes由Joint nodes连接而成, 常用HingeJoint来连接不同的solid nodes, 即转动副;</p>
+<p>节点关系图如下：</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2023/07/27/Webots-%E5%85%A5%E9%97%A8/fig_15.png"
+                      class="" width="500"
+                >
+
+<p>先在场景中创建一个Robot节点, 然后添加其物理属性, 密度和质量更改其一即可, 另外一个为-1</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2023/07/27/Webots-%E5%85%A5%E9%97%A8/fig_11.png"
+                      class="" width="200"
+                >
+
+<p>在Robot_children下添加一个Shape, 设置appearance和geometry, geometry选择Box即可;</p>
+<p>对shape进行命名, 然后添加boundingObject, 选择<code>USE</code>里面的Shape;</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2023/07/27/Webots-%E5%85%A5%E9%97%A8/fig_12.png"
+                      class="" width="300"
+                >
+
+<p>这样就画好小车的主体了:</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2023/07/27/Webots-%E5%85%A5%E9%97%A8/fig_13.png"
+                      class="" width="400"
+                >
+
+<p>在Robot_children下添加1个HingeJoint, 添加第一项参数HingeJointParameters, 修改其中的<code>anchor</code>, 作为转动副的锚点;</p>
+<p>所有的设计参数都可以参照这个坐标系的尺寸：（在画一个机器人必须先用笛卡尔坐标系对其建模，以方便填写参数）</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2023/07/27/Webots-%E5%85%A5%E9%97%A8/fig_14.png"
+                      class="" width="500"
+                >
+
+<p>转动副Anchor设置参考图：</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/2023/07/27/Webots-%E5%85%A5%E9%97%A8/fig_16.png"
+                      class="" width="400"
+                >
+
+<p>第二项device添加电机<code>RotationalMotor</code>, 修改名字为motor_1;</p>
+<p>在endPoint中添加Solid节点, 并对其命名为wheel</p>
+<h2 id="Webots的不足"><a href="#Webots的不足" class="headerlink" title="Webots的不足"></a>Webots的不足</h2><p>Webots作为一个易用性强，结构简单的虚拟样机，可以针对一些机器人中的运动学和工作规划的设计进行优化，但是缺点也很明显，对于物理属性和材料属性决定的问题，webots的仿真比较无力。例如在解决步兵发射机构和飞镖发射的问题时，任何微小变化的因素：装配精度，温度变化，电机性能等等都会对发射精度产生不可忽略的影响。</p>
 <p>对于工程机器人的机械臂的工作空间规划、平衡步兵结构设计与控制算法的耦合测试，麦轮和全向轮的飞坡以及在盲道上的表现，都可以尝试着去进行仿真，在仿真过程中不断修改机器人的结构设计参数以及控制的算法，可以达到一个缩短研发周期和研发成本的效果。</p>
 <p>Webots的物理引擎毕竟与现实物理世界还是有较大的差距的，因此仿真的结果不一定与最终的测试结果相同，会存在一定的误差，因此应该根据研发的需求决定是否进行虚拟样机的仿真。</p>
 <p>所有的仿真都是在一个不太复杂的工况中通过虚拟样机做近似处理，从而得到一个优化的结果，不能完全依赖仿真，从而忽视了实际测试的重要性。</p>
@@ -413,7 +473,7 @@
         <li><strong>Created at:</strong> 2023-07-27 13:53:28</li>
         
             <li>
-                <strong>Updated at:</strong> 2023-07-28 17:50:13
+                <strong>Updated at:</strong> 2023-08-12 17:56:50
             </li>
         
         <li>
@@ -523,7 +583,7 @@
     <div class="post-toc">
         <div class="toc-title">On this page</div>
         <div class="page-title">Webots 入门</div>
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E7%94%A8Webots"><span class="nav-text">为什么用Webots</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B"><span class="nav-text">安装和使用教程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Controller-in-vscode"><span class="nav-text">Controller in vscode</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PROTO%E7%9A%84%E5%88%B6%E4%BD%9C"><span class="nav-text">PROTO的制作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%A5%E9%97%A8%E7%BB%83%E4%B9%A0"><span class="nav-text">入门练习</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%BA%A6%E8%BD%AE%E5%BA%95%E7%9B%98%E6%8E%A7%E5%88%B6%E5%99%A8%EF%BC%88%E8%AF%A6%E7%BB%86%EF%BC%89"><span class="nav-text">麦轮底盘控制器（详细）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%8A%A8%E9%81%BF%E9%9A%9C%E5%B0%8F%E8%BD%A6"><span class="nav-text">自动避障小车</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PID%E5%B0%8F%E8%BD%A6%E5%80%92%E7%AB%8B%E6%91%86%E6%A8%A1%E5%9E%8B"><span class="nav-text">PID小车倒立摆模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9B%E6%97%8B%E7%BF%BC%E5%A7%BF%E6%80%81%E6%8E%A7%E5%88%B6"><span class="nav-text">四旋翼姿态控制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BD%AE%E8%85%BF%E6%9C%BA%E5%99%A8%E4%BA%BA"><span class="nav-text">轮腿机器人</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Webots%E7%9A%84%E4%B8%8D%E8%B6%B3"><span class="nav-text">Webots的不足</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E7%94%A8Webots"><span class="nav-text">为什么用Webots</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B"><span class="nav-text">安装和使用教程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Controller-in-vscode"><span class="nav-text">Controller in vscode</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PROTO%E7%9A%84%E5%88%B6%E4%BD%9C"><span class="nav-text">PROTO的制作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solidworks%E5%AF%BC%E5%85%A5%E6%A8%A1%E5%9E%8B"><span class="nav-text">Solidworks导入模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%A5%E9%97%A8%E7%BB%83%E4%B9%A0"><span class="nav-text">入门练习</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%BA%A6%E8%BD%AE%E5%BA%95%E7%9B%98%E6%8E%A7%E5%88%B6%E5%99%A8%EF%BC%88%E8%AF%A6%E7%BB%86%EF%BC%89"><span class="nav-text">麦轮底盘控制器（详细）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%8A%A8%E9%81%BF%E9%9A%9C%E5%B0%8F%E8%BD%A6"><span class="nav-text">自动避障小车</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%8F%E8%BD%A6%E5%80%92%E7%AB%8B%E6%91%86%E6%A8%A1%E5%9E%8B%E6%90%AD%E5%BB%BA"><span class="nav-text">小车倒立摆模型搭建</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Webots%E7%9A%84%E4%B8%8D%E8%B6%B3"><span class="nav-text">Webots的不足</span></a></li></ol>
 
     </div>
 </div>
